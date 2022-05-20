@@ -7,6 +7,10 @@ class BankAccount {
     this.balance += num
   }
 
+  withdraw(num) {
+    this.balance -= num
+  }
+
 
 }
 

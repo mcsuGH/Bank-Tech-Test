@@ -15,4 +15,13 @@ describe("BankAccount", () => {
       expect(bankAccount.balance).toEqual(500);
     })
   })
+
+  describe("Withdraw", () => {
+    it('should let you withdraw money from your bank account', () => {
+      bankAccount = new BankAccount();
+      bankAccount.deposit(500);
+      bankAccount.withdraw(100);
+      expect(bankAccount.balance).toEqual(400);
+    })
+  })
 })
