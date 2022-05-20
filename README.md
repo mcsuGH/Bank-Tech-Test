@@ -47,6 +47,10 @@ As a Client,
 So that I can see what happened to my money,
 The statement should include the dates of when deposits and withdrawals were made aswell as the balance remaining
 
+As a Client,
+So that I can easily check the latest updates on my account,
+The statement should show the most recent actions first
+
 Possible Edge Cases:
 As the Bank,
 So that my customers do not overdraft,

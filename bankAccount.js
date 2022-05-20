@@ -11,6 +11,10 @@ class BankAccount {
     this.balance -= num
   }
 
+  printStatement() {
+    return "date || credit || debit || balance"
+  }
+
 
 }
 
