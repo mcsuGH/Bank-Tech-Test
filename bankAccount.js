@@ -3,6 +3,10 @@ class BankAccount {
     this.balance = 0
   }
 
+  deposit(num) {
+    this.balance += num
+  }
+
 
 }
 
