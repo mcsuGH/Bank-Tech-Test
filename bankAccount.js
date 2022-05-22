@@ -41,6 +41,8 @@ class BankAccount {
       throw "Please enter a valid amount"
     } else if (num.toFixed(2) != num) {
       throw "Please enter a valid amount"
+    } else if (num < 0) {
+      throw "Please enter a valid amount"
     }
   }
 }
