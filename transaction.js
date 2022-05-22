@@ -5,7 +5,6 @@ class Transaction {
     this.debit = withdraw;
     this.balance = balance;
   }
-
 }
 
 module.exports = Transaction;

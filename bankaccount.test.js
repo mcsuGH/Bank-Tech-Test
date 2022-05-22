@@ -14,10 +14,17 @@ describe("BankAccount", () => {
       expect(bankAccount.history).toEqual([]);
     })
 
-    it('transaction history should be updated after each transaction', () => {
+    it('transaction history should be updated after a deposit', () => {
       bankAccount = new BankAccount();
       bankAccount.deposit(500, '22-05-2022');
       expect(bankAccount.history.length).toEqual(1);
+    })
+
+    it('transaction history should be updated after a withdraw', () => {
+      bankAccount = new BankAccount();
+      bankAccount.deposit(500, '22-05-2022');
+      bankAccount.withdraw(500, '22-05-2022');
+      expect(bankAccount.history.length).toEqual(2);
     })
   })
 
@@ -33,7 +40,7 @@ describe("BankAccount", () => {
     it('should let you withdraw money from your bank account', () => {
       bankAccount = new BankAccount();
       bankAccount.deposit(500, '22-05-2022');
-      bankAccount.withdraw(100);
+      bankAccount.withdraw(100, '22-05-2022');
       expect(bankAccount.balance).toEqual(400);
     })
   })
