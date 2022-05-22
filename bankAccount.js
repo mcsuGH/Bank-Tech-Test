@@ -14,6 +14,7 @@ class BankAccount {
   }
 
   withdraw(num, date) {
+    this.#checkErrors(num)
     this.balance -= num
     this.#recordWithdraw(num, date)
   }
@@ -37,6 +38,11 @@ class BankAccount {
   }
 
   #checkErrors(num) {
+    this.#checkDeposit(num);
+    this.#checkWithdraw(num);
+  }
+
+  #checkDeposit(num) {
     if (typeof num != "number") {
       throw "Please enter a valid amount"
     } else if (num.toFixed(2) != num) {
@@ -44,6 +50,12 @@ class BankAccount {
     } else if (num < 0) {
       throw "Please enter a valid amount"
     }
+  }
+
+  #checkWithdraw(num) {
+    if (typeof num != "number") {
+      throw "Please enter a valid amount"
+    } 
   }
 }
 

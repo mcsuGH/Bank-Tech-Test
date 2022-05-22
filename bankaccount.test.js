@@ -65,6 +65,14 @@ describe("BankAccount", () => {
       bankAccount.withdraw(100, '22/05/2022');
       expect(bankAccount.balance).toEqual(400);
     })
+
+    it('raises an error if the number is not a number', () => {
+      bankAccount.deposit(500, '22/05/2022');
+      expect(() => {
+        bankAccount.withdraw('bob', '22/05/2022');
+      }).toThrowError("Please enter a valid amount")
+      expect(bankAccount.balance).toEqual(500);
+    })
   })
 
   describe("printStatement", () => {
