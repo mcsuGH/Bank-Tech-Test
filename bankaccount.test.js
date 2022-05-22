@@ -8,6 +8,13 @@ describe("BankAccount", () => {
     })
   })
 
+  describe("history", () => {
+    it('should let you check the transaction history', () => {
+      bankAccount = new BankAccount();
+      expect(bankAccount.history).toEqual([]);
+    })
+  })
+
   describe("deposit", () => {
     it('should let you deposit money into your bank account', () => {
       bankAccount = new BankAccount();
