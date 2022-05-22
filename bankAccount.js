@@ -4,8 +4,8 @@ class BankAccount {
     this.history = []
   }
 
-  deposit(num) {
-    this.history.push({deposit: num})
+  deposit(num, date) {
+    this.history.push({date: date, deposit: num})
     this.balance += num
   }
 
