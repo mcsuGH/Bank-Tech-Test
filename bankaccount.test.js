@@ -90,6 +90,13 @@ describe("BankAccount", () => {
       expect(bankAccount.balance).toEqual(500);
     })
 
+    it('raises an error if the number is greater than the current balance', () => {
+      bankAccount.deposit(500, '22/05/2022');
+      expect(() => {
+        bankAccount.withdraw(501, '22/05/2022');
+      }).toThrowError("Insufficient balance")
+      expect(bankAccount.balance).toEqual(500);
+    })
   })
 
   describe("printStatement", () => {

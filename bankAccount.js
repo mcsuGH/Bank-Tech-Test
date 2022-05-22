@@ -8,7 +8,7 @@ class BankAccount {
   }
 
   deposit(num, date) {
-    this.#checkErrors(num)
+    this.#checkDeposit(num)
     this.balance += num
     this.#recordDeposit(num, date)
   }
@@ -53,7 +53,9 @@ class BankAccount {
   }
 
   #checkWithdraw(num) {
-    
+    if (num > this.balance) {
+      throw "Insufficient balance"
+    }
   }
 }
 
