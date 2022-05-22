@@ -8,12 +8,12 @@ class BankAccount {
 
   deposit(num, date) {
     this.balance += num
-    this.history.unshift(new Transaction(date, num, "", this.balance))
+    this.history.unshift(new Transaction(date, Number(num).toFixed(2), "", Number(this.balance).toFixed(2)))
   }
 
   withdraw(num, date) {
     this.balance -= num
-    this.history.unshift(new Transaction(date, "", num, this.balance))
+    this.history.unshift(new Transaction(date, "", Number(num).toFixed(2), Number(this.balance).toFixed(2)))
   }
 
   printStatement() {
