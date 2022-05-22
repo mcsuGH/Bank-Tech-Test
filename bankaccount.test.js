@@ -12,6 +12,12 @@ describe("BankAccount", () => {
     it('should let you check the balance in your bank account', () => {
       expect(bankAccount.balance).toEqual(0);
     })
+
+    it('should let you see the balance nicely formatted', () => {
+      console.log = jest.fn();
+      bankAccount.getBalance();
+      expect(console.log).toHaveBeenCalledWith('Balance: £0.00');
+    })
   })
 
   describe("history", () => {

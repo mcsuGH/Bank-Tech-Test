@@ -7,16 +7,22 @@ class BankAccount {
     this.transaction = transaction
   }
 
+  getBalance () {
+    console.log(`Balance: £${this.balance.toFixed(2)}`)
+  }
+
   deposit (num, date) {
     this.#checkNumber(num)
     this.balance += num
     this.#recordDeposit(num, date)
+    this.getBalance();
   }
 
   withdraw (num, date) {
     this.#checkErrors(num)
     this.balance -= num
     this.#recordWithdraw(num, date)
+    this.getBalance();
   }
 
   printStatement () {
@@ -45,7 +51,7 @@ class BankAccount {
   #checkNumber (num) {
     if (typeof num !== 'number') {
       throw 'Please enter a valid amount'
-    } else if (num.toFixed(2) !== num) {
+    } else if (num.toFixed(2) != num) {
       throw 'Please enter a valid amount'
     } else if (num < 0) {
       throw 'Please enter a valid amount'
