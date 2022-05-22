@@ -17,13 +17,7 @@ describe("BankAccount", () => {
     it('transaction history should be updated after each transaction', () => {
       bankAccount = new BankAccount();
       bankAccount.deposit(500, '22-05-2022');
-      expect(bankAccount.history).toEqual([{date: '22-05-2022', deposit: 500}]);
-    })
-
-    it('transactions have the date they were made', () => {
-      bankAccount = new BankAccount();
-      bankAccount.deposit(500, '22-05-2022');
-      expect(bankAccount.history).toEqual([{date: '22-05-2022', deposit: 500}]);
+      expect(bankAccount.history.length).toEqual(1);
     })
   })
 
