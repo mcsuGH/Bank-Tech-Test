@@ -43,6 +43,13 @@ describe("BankAccount", () => {
       }).toThrowError("Please enter a valid amount")
       expect(bankAccount.balance).toEqual(0);
     })
+
+    it('raises an error if the number has too many decimals', () => {
+      expect(() => {
+        bankAccount.deposit(500.123, '22/05/2022');
+      }).toThrowError("Please enter a valid amount")
+      expect(bankAccount.balance).toEqual(0);
+    })
   })
 
   describe("withdraw", () => {
