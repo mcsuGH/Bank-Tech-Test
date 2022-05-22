@@ -53,9 +53,7 @@ class BankAccount {
   }
 
   #checkWithdraw(num) {
-    if (typeof num != "number") {
-      throw "Please enter a valid amount"
-    } 
+    
   }
 }
 

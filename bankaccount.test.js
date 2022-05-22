@@ -73,6 +73,23 @@ describe("BankAccount", () => {
       }).toThrowError("Please enter a valid amount")
       expect(bankAccount.balance).toEqual(500);
     })
+
+    it('raises an error if the number has too many decimals', () => {
+      bankAccount.deposit(500, '22/05/2022');
+      expect(() => {
+        bankAccount.withdraw(0.123, '22/05/2022');
+      }).toThrowError("Please enter a valid amount")
+      expect(bankAccount.balance).toEqual(500);
+    })
+
+    it('raises an error if the number is less than 0', () => {
+      bankAccount.deposit(500, '22/05/2022');
+      expect(() => {
+        bankAccount.withdraw(-1, '22/05/2022');
+      }).toThrowError("Please enter a valid amount")
+      expect(bankAccount.balance).toEqual(500);
+    })
+
   })
 
   describe("printStatement", () => {
