@@ -13,6 +13,12 @@ describe("BankAccount", () => {
       bankAccount = new BankAccount();
       expect(bankAccount.history).toEqual([]);
     })
+
+    it('transaction history should be updated after each transaction', () => {
+      bankAccount = new BankAccount();
+      bankAccount.deposit(500);
+      expect(bankAccount.history).toEqual([{deposit: 500}]);
+    })
   })
 
   describe("deposit", () => {

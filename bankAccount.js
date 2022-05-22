@@ -5,6 +5,7 @@ class BankAccount {
   }
 
   deposit(num) {
+    this.history.push({deposit: num})
     this.balance += num
   }
 
