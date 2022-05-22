@@ -8,18 +8,17 @@ class BankAccount {
 
   deposit(num, date) {
     this.balance += num
-    this.history.push(new Transaction(date, num, "", this.balance))
+    this.history.unshift(new Transaction(date, num, "", this.balance))
   }
 
   withdraw(num, date) {
     this.balance -= num
-    this.history.push(new Transaction(date, "", num, this.balance))
+    this.history.unshift(new Transaction(date, "", num, this.balance))
   }
 
   printStatement() {
     let string = "date || credit || debit || balance"
-    let newestFirst = this.history.reverse()
-    newestFirst.forEach((transaction) => {
+    this.history.forEach((transaction) => {
       string += `\n${transaction.date} || ${transaction.credit} || ${transaction.debit} || ${transaction.balance}`
     })
     console.log(string)
