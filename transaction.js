@@ -1,4 +1,7 @@
 class Transaction {
+  constructor(date) {
+    this.date = date
+  }
 
 }
 
