@@ -59,7 +59,7 @@ describe("BankAccount", () => {
       bankAccount.deposit(500, '22/05/2022');
       bankAccount.withdraw(200, '22/05/2022');
       bankAccount.printStatement();
-      expect(console.log).toHaveBeenCalledWith('date || credit || debit || balance' + '\n22/05/2022 ||  || 200.00 || 300.00' + '\n22/05/2022 || 500.00 ||  || 500.00')
+      expect(console.log).toHaveBeenCalledWith('date || credit || debit || balance' + '\n22/05/2022 || || 200.00 || 300.00' + '\n22/05/2022 || 500.00 || || 500.00')
     })
   })
 })
