@@ -8,16 +8,19 @@ class BankAccount {
 
   deposit(num, date) {
     this.balance += num
-    this.history.push(new Transaction(date, num, null, this.balance))
+    this.history.push(new Transaction(date, num, "", this.balance))
   }
 
   withdraw(num, date) {
     this.balance -= num
-    this.history.push(new Transaction(date, null, num, this.balance))
+    this.history.push(new Transaction(date, "", num, this.balance))
   }
 
   printStatement() {
-    return "date || credit || debit || balance"
+    console.log("date || credit || debit || balance")
+    this.history.forEach((transaction) => {
+      console.log(`${transaction.date} || ${transaction.credit} || ${transaction.debit} || ${transaction.balance}`)
+    })
   }
 
 
