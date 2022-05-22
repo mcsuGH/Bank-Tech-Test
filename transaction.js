@@ -1,7 +1,8 @@
 class Transaction {
-  constructor(date, deposit) {
+  constructor(date, deposit, withdraw) {
     this.date = date;
-    this.deposit = deposit
+    this.deposit = deposit;
+    this.withdraw = withdraw;
   }
 
 }
