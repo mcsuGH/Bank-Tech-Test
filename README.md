@@ -55,6 +55,10 @@ Possible Edge Cases:
 As the Bank,
 So that my customers do not overdraft,
 I would like the customers to not be able to withdraw more money than they have
+
+As the Bank,
+So that my customers have valid balances,
+I would like the customers to only be able to put in valid user inputs
 ```
 
 ## Resources used
