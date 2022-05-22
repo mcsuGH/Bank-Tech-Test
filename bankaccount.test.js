@@ -110,8 +110,8 @@ describe("BankAccount", () => {
       Transaction.mockImplementationOnce(() => {
         return {
           date: '22/05/2022',
-          credit: "500.00 ",
-          debit: "",
+          credit: '500.00 ',
+          debit: '',
           balance: "500.00",
         }
       })
@@ -119,9 +119,9 @@ describe("BankAccount", () => {
       Transaction.mockImplementationOnce(() => {
         return {
           date: '22/05/2022',
-          credit: "",
-          debit: "200.00 ",
-          balance: "300.00",
+          credit: '',
+          debit: '200.00 ',
+          balance: '300.00',
         }
       })
       bankAccount.withdraw(200, '22/05/2022');
