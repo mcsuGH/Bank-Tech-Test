@@ -17,13 +17,13 @@ class BankAccount {
   }
 
   printStatement() {
-    console.log("date || credit || debit || balance")
-    this.history.forEach((transaction) => {
-      console.log(`${transaction.date} || ${transaction.credit} || ${transaction.debit} || ${transaction.balance}`)
+    let string = "date || credit || debit || balance"
+    let newestFirst = this.history.reverse()
+    newestFirst.forEach((transaction) => {
+      string += `\n${transaction.date} || ${transaction.credit} || ${transaction.debit} || ${transaction.balance}`
     })
+    console.log(string)
   }
-
-
 }
 
 module.exports = BankAccount;

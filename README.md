@@ -57,3 +57,8 @@ So that my customers do not overdraft,
 I would like the customers to not be able to withdraw more money than they have
 ```
 
+## Resources used
+```
+https://stackoverflow.com/questions/49096093/how-do-i-test-a-jest-console-log
+```
+used the above to mock console.log

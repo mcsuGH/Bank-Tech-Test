@@ -53,13 +53,13 @@ describe("BankAccount", () => {
       expect(console.log).toHaveBeenCalledWith('date || credit || debit || balance')
     })
 
-    it('should print out a bank statement with transactions', () => {
+    it('should print out a bank statement with transactions with the latest transactions shown first', () => {
       const bankAccount = new BankAccount();
       console.log = jest.fn();
       bankAccount.deposit(500, '22/05/2022');
+      bankAccount.withdraw(200, '22/05/2022');
       bankAccount.printStatement();
-      expect(console.log).toHaveBeenCalledWith('date || credit || debit || balance')
-      expect(console.log).toHaveBeenCalledWith('22/05/2022 || 500 ||  || 500')
+      expect(console.log).toHaveBeenCalledWith('date || credit || debit || balance' + '\n22/05/2022 ||  || 200 || 300' + '\n22/05/2022 || 500 ||  || 500')
     })
   })
 })
