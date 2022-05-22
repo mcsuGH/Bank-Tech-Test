@@ -8,11 +8,16 @@ describe("Transaction", () => {
 
   it("should know how much money was deposited", () => {
     transaction = new Transaction("22-05-2022", 500, null);
-    expect(transaction.deposit).toEqual(500);
+    expect(transaction.credit).toEqual(500);
   })
   
   it("should know how much money was withdrawn", () => {
     transaction = new Transaction("22-05-2022", null, 200);
-    expect(transaction.withdraw).toEqual(200);
+    expect(transaction.debit).toEqual(200);
+  })
+
+  it("should know how the balance after the transaction", () => {
+    transaction = new Transaction("22-05-2022", null, 200, 1000);
+    expect(transaction.balance).toEqual(1000);
   })
 })
