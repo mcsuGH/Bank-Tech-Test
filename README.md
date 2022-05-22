@@ -1,5 +1,5 @@
 # Bank Tech Test
-For a practice tech test, I have been tasked to create a Bank system that allows people to deposit money, withdraw money and print their bank statement.\
+For a practice tech test, I have been tasked to create a Bank Account system that allows people to deposit money, withdraw money and print their bank statement.\
 \
 The program will be ran in Node but will not need to have a Command Line Interface. The focus of the project is to practice OO design and TDD skills and the project will be completed solo with self-reviews done to reflect and improve upon my own code.
 
@@ -72,7 +72,7 @@ I initially started with writing all the code inside the same code file but it b
 \
 I considered a few edge cases that were not part of the spec such as not allowing overdrafts (which led to the introduction of a balance check when withdrawing money) and also to check that when depositing and withdrawing, the amount would be a valid monetary amount. I raised errors according to these situations so that accounts can still keep working as per normal even after a action that would raise an error - previously, these actions could break the program (such as when entering a string in place of the amount, the balance would become NaN, or Not a Number).\
 \
-I used Jest for testing, Prettier to format my code and attempted to use ESLint as a linter - however, there would be many clashes between ESLint and Prettier (for example, ESLint would raise problems for using `""` instead of `''`, but Prettier would use `''`). ESLint also would raise problems with a few other issues that would end up breaking the tests/code (such as using `!==` instead of `!=` for my inequality when checking decimal places). As a result, I opted against using ESLint to lint my code and just stuck with using Prettier to format it instead.
+I used Jest for testing, Prettier to format my code and attempted to use ESLint as a linter - however, there would be many clashes between ESLint and Prettier (for example, ESLint would raise problems for using `""` instead of `''`, but Prettier would use `""`). ESLint also would raise problems with a few other issues that would end up breaking the tests/code (such as using `!==` instead of `!=` for my inequality when checking decimal places). As a result, I opted against using ESLint to lint my code and just stuck with using Prettier to format it instead.
 
 ## Resources used
 ```
