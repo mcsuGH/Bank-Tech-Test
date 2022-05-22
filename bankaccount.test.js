@@ -61,7 +61,6 @@ describe("BankAccount", () => {
     })
 
     it('should print out a bank statement with transactions with the latest transactions shown first and 2 decimals shown for numbers', () => {
-      console.log = jest.fn();
       Transaction.mockImplementationOnce(() => {
         return {
           date: '22/05/2022',
@@ -80,6 +79,7 @@ describe("BankAccount", () => {
         }
       })
       bankAccount.withdraw(200, '22/05/2022');
+      console.log = jest.fn();
       bankAccount.printStatement();
       expect(console.log).toHaveBeenCalledWith('date || credit || debit || balance' + '\n22/05/2022 || || 200.00 || 300.00' + '\n22/05/2022 || 500.00 || || 500.00')
     })

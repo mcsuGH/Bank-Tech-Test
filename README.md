@@ -65,6 +65,8 @@ I would like the customers to only be able to put in valid user inputs
 ```
 https://stackoverflow.com/questions/49096093/how-do-i-test-a-jest-console-log
 https://jestjs.io/docs/es6-class-mocks
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
 ```
-used the above to mock console.log
-used the above to mock Transaction class
+used the above to mock console.log\
+used the above to mock Transaction class\
+used the above to check for valid input on numbers

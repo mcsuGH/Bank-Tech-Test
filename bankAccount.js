@@ -8,6 +8,7 @@ class BankAccount {
   }
 
   deposit(num, date) {
+    this.#checkErrors(num)
     this.balance += num
     this.#recordDeposit(num, date)
   }
@@ -33,6 +34,12 @@ class BankAccount {
 
   #recordWithdraw(num, date) {
     this.history.unshift(new this.transaction(date, "", Number(num).toFixed(2) + " ", Number(this.balance).toFixed(2)))
+  }
+
+  #checkErrors(num) {
+    if (typeof num != "number") {
+      throw "Please enter a valid amount"
+    }
   }
 }
 
