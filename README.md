@@ -6,7 +6,7 @@ The program will be ran in Node but will not need to have a Command Line Interfa
 ## Instructions
 Clone this repository using `git clone https://github.com/mcsuGH/Bank-Tech-Test.git`\
 \
-Run `npm install` to install any dependencies then run `jest` to run the tests for the code.
+Run `npm install` to install any dependencies then run `jest` to run the tests for the code. To check for test coverage, run the command `jest --coverage`.
 
 ## Specification
 ### Requirements
@@ -60,6 +60,17 @@ As the Bank,
 So that my customers have valid balances,
 I would like the customers to only be able to put in valid user inputs
 ```
+
+## Approach
+![Screenshot](https://i.imgur.com/ItsUeyz.png)
+![Screenshot](https://i.imgur.com/8NC0R0C.png)
+As can be seen above, there is 100% test coverage and the program works according to the specification above with all the user stories satisfied. I approached this task following a TDD process, always writing tests first and then writing code to pass those tests to ensure high test coverage. I followed the SRP by separating my methods when I realised they were responsible for doing more than one thing (such as splitting my deposit method to the current deposit method aswell as a new method used to record the transaction).\
+\
+I initially started with writing all the code inside the same code file but it became apparent early on from writing tests that a Transaction class would be needed so I ended up with two classes - Bank Account class and Transaction class. I considered creating a Statement class too to print out the bank statements but it didn't seem necessary as the method used to print it still seemed concise and there was no need for any variables for printing out the statement so there didn't seem to be a need for splitting it off into a new class.\
+\
+I considered a few edge cases that were not part of the spec such as not allowing overdrafts (which led to the introduction of a balance check when withdrawing money) and also to check that when depositing and withdrawing, the amount would be a valid monetary amount. I raised errors according to these situations so that accounts can still keep working as per normal even after a action that would raise an error - previously, these actions could break the program (such as when entering a string in place of the amount, the balance would become NaN, or Not a Number).\
+\
+I used Jest for testing, Prettier to format my code and attempted to use ESLint as a linter - however, there would be many clashes between ESLint and Prettier (for example, ESLint would raise problems for using `""` instead of `''`, but Prettier would use `''`). ESLint also would raise problems with a few other issues that would end up breaking the tests/code (such as using `!==` instead of `!=` for my inequality when checking decimal places). As a result, I opted against using ESLint to lint my code and just stuck with using Prettier to format it instead.
 
 ## Resources used
 ```
