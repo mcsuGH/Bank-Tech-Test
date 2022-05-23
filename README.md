@@ -93,7 +93,9 @@ Tried to look for ways to test behaviour rather than state [Jest Matchers](https
 - Asked whether dependency on Time is mocked
 - BankAccount class is most likely too long
 
-Answering the Self-review questions seems to suggest that Time is used to create the date/time of the transactions rather than having the user manually input them which would lead to the need of mocking the Time in the tests. Again, further suggestions that my BankAccount class is far too long. Therefore, I will try to remove the error checks from the BankAccount class and create a new Class to check whether or not user inputs are valid, I may also try to create a new class to hold the transactions which would mean I would be able to reduce the reliance on the BankAccount class to record transactions. I will also remove the date from being a user input and instead automatically take the current date when creating transactions.
+Answering the Self-review questions seems to suggest that Time is used to create the date/time of the transactions rather than having the user manually input them which would lead to the need of mocking the Time in the tests. Again, further suggestions that my BankAccount class is far too long. Therefore, I will try to remove the error checks from the BankAccount class and create a new Class to check whether or not user inputs are valid, I may also try to create a new class to hold the transactions which would mean I would be able to reduce the reliance on the BankAccount class to record transactions. I will also remove the date from being a user input and instead automatically take the current date when creating transactions.\
+\
+Note: Decided against making a new class to hold transactions as it would still require the same amount of lines in the BankAccount code (since that is where I would push the transaction into the potential new class).
 
 ## Resources used
 ```

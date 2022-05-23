@@ -1,14 +1,17 @@
 const BankAccount = require('../lib/bankAccount');
 const Transaction = require('../lib/transaction');
 const Statement = require('../lib/statement');
+const InputChecker = require('../lib/inputChecker');
 
 jest.mock('../lib/transaction');
 jest.mock('../lib/statement');
+jest.mock('../lib/inputChecker');
 
 describe('BankAccount', () => {
   beforeEach(() => {
     Transaction.mockClear();
     Statement.mockClear();
+    InputChecker.mockClear();
     statement = new Statement();
     bankAccount = new BankAccount(Transaction, statement);
   });
@@ -49,6 +52,9 @@ describe('BankAccount', () => {
     });
 
     it('raises an error if the number is not a number', () => {
+      bankAccount.checker.checkNumber.mockImplementationOnce(() => {
+        throw "Please enter a valid amount"
+      })
       expect(() => {
         bankAccount.deposit('bob', '22/05/2022');
       }).toThrowError('Please enter a valid amount');
@@ -56,6 +62,9 @@ describe('BankAccount', () => {
     });
 
     it('raises an error if the number has too many decimals', () => {
+      bankAccount.checker.checkNumber.mockImplementationOnce(() => {
+        throw "Please enter a valid amount"
+      })
       expect(() => {
         bankAccount.deposit(500.123, '22/05/2022');
       }).toThrowError('Please enter a valid amount');
@@ -63,6 +72,9 @@ describe('BankAccount', () => {
     });
 
     it('raises an error if the number is less than 0', () => {
+      bankAccount.checker.checkNumber.mockImplementationOnce(() => {
+        throw "Please enter a valid amount"
+      })
       expect(() => {
         bankAccount.deposit(-1, '22/05/2022');
       }).toThrowError('Please enter a valid amount');
@@ -79,6 +91,9 @@ describe('BankAccount', () => {
 
     it('raises an error if the number is not a number', () => {
       bankAccount.deposit(500, '22/05/2022');
+      bankAccount.checker.checkNumber.mockImplementationOnce(() => {
+        throw "Please enter a valid amount"
+      })
       expect(() => {
         bankAccount.withdraw('bob', '22/05/2022');
       }).toThrowError('Please enter a valid amount');
@@ -87,6 +102,9 @@ describe('BankAccount', () => {
 
     it('raises an error if the number has too many decimals', () => {
       bankAccount.deposit(500, '22/05/2022');
+      bankAccount.checker.checkNumber.mockImplementationOnce(() => {
+        throw "Please enter a valid amount"
+      })
       expect(() => {
         bankAccount.withdraw(0.123, '22/05/2022');
       }).toThrowError('Please enter a valid amount');
@@ -95,6 +113,9 @@ describe('BankAccount', () => {
 
     it('raises an error if the number is less than 0', () => {
       bankAccount.deposit(500, '22/05/2022');
+      bankAccount.checker.checkNumber.mockImplementationOnce(() => {
+        throw "Please enter a valid amount"
+      })
       expect(() => {
         bankAccount.withdraw(-1, '22/05/2022');
       }).toThrowError('Please enter a valid amount');
@@ -103,6 +124,9 @@ describe('BankAccount', () => {
 
     it('raises an error if the number is greater than the balance', () => {
       bankAccount.deposit(500, '22/05/2022');
+      bankAccount.checker.checkNumber.mockImplementationOnce(() => {
+        throw "Insufficient balance"
+      })
       expect(() => {
         bankAccount.withdraw(501, '22/05/2022');
       }).toThrowError('Insufficient balance');
