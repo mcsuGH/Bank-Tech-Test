@@ -89,12 +89,20 @@ After first self review, decided to split Statement into a new class afterall. W
 
 Tried to look for ways to test behaviour rather than state [Jest Matchers](https://jestjs.io/docs/expect) (e.g when depositing, check if method increases balance by the deposited amount rather than just checking if the amount is correct), however, when looking at the available matchers, there didn't seem to be anything similar to RSpec's `expect(action).to change(object, value)` - so not sure how to proceed. BankAccount class did seem pretty long, especially in comparison to the other two classes, however this was due to the private methods used to record transactions (that are already in a different class) and also checking user inputs for the numbers.
 
+### After third self-review
+- Asked whether dependency on Time is mocked
+- BankAccount class is most likely too long
+
+Answering the Self-review questions seems to suggest that Time is used to create the date/time of the transactions rather than having the user manually input them which would lead to the need of mocking the Time in the tests. Again, further suggestions that my BankAccount class is far too long. Therefore, I will try to remove the error checks from the BankAccount class and create a new Class to check whether or not user inputs are valid, I may also try to create a new class to hold the transactions which would mean I would be able to reduce the reliance on the BankAccount class to record transactions. I will also remove the date from being a user input and instead automatically take the current date when creating transactions.
+
 ## Resources used
 ```
 https://stackoverflow.com/questions/49096093/how-do-i-test-a-jest-console-log
 https://jestjs.io/docs/es6-class-mocks
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof
+https://www.npmjs.com/package/mockdate
 ```
 used the above to mock console.log\
 used the above to mock Transaction class\
-used the above to check for valid input on numbers
+used the above to check for valid input on numbers\
+used the above to mock date on test
