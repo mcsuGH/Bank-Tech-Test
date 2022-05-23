@@ -12,8 +12,9 @@ describe('BankAccount', () => {
     Transaction.mockClear();
     Statement.mockClear();
     InputChecker.mockClear();
-    statement = new Statement();
-    bankAccount = new BankAccount(Transaction, statement);
+    mockStatement = new Statement();
+    mockChecker = new InputChecker();
+    bankAccount = new BankAccount(Transaction, mockStatement, mockChecker);
   });
 
   describe('balance', () => {
@@ -165,6 +166,7 @@ describe('BankAccount', () => {
         };
       });
       bankAccount.withdraw(200, '22/05/2022');
+      // Due to the mocking on line 170, lines 151 - 168 are not needed to pass the test anymore but left them in to mock how the program works
       bankAccount.statement.print.mockImplementationOnce(() => {
         console.log(  
           'date || credit || debit || balance' +
