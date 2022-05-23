@@ -1,10 +1,12 @@
 const Transaction = require("./transaction");
+const Statement = require("./statement");
 
 class BankAccount {
-  constructor(transaction = Transaction) {
+  constructor(transaction = Transaction, statement = new Statement()) {
     this.balance = 0;
     this.history = [];
     this.transaction = transaction;
+    this.statement = statement;
   }
 
   getBalance() {
@@ -26,11 +28,7 @@ class BankAccount {
   }
 
   printStatement() {
-    let statement = "date || credit || debit || balance";
-    this.history.forEach((transaction) => {
-      statement += `\n${transaction.date} || ${transaction.credit}|| ${transaction.debit}|| ${transaction.balance}`;
-    });
-    console.log(statement);
+    this.statement.print(this.history);
   }
 
   // private methods

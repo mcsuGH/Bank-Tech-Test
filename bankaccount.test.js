@@ -1,11 +1,15 @@
 const BankAccount = require("./bankaccount");
 const Transaction = require("./transaction");
+const Statement = require("./statement");
 jest.mock("./transaction");
+jest.mock("./statement");
 
 describe("BankAccount", () => {
   beforeEach(() => {
     Transaction.mockClear();
-    bankAccount = new BankAccount();
+    Statement.mockClear();
+    statement = new Statement();
+    bankAccount = new BankAccount(Transaction, statement);
   });
 
   describe("balance", () => {
@@ -107,6 +111,9 @@ describe("BankAccount", () => {
 
   describe("printStatement", () => {
     it("should print out a bank statement with just the header when there are no transactions", () => {
+      bankAccount.statement.print.mockImplementationOnce(() => {
+        console.log("date || credit || debit || balance")
+      })
       console.log = jest.fn();
       bankAccount.printStatement();
       expect(console.log).toHaveBeenCalledWith(
@@ -133,6 +140,13 @@ describe("BankAccount", () => {
         };
       });
       bankAccount.withdraw(200, "22/05/2022");
+      bankAccount.statement.print.mockImplementationOnce(() => {
+        console.log(  
+          "date || credit || debit || balance" +
+          "\n22/05/2022 || || 200.00 || 300.00" +
+          "\n22/05/2022 || 500.00 || || 500.00"
+        )
+      })
       console.log = jest.fn();
       bankAccount.printStatement();
       expect(console.log).toHaveBeenCalledWith(
