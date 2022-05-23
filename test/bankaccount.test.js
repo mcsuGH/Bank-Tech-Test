@@ -1,48 +1,26 @@
 const BankAccount = require('../lib/bankAccount');
-const Transaction = require('../lib/transaction');
+const TransactionHistory = require('../lib/transactionHistory');
 const Statement = require('../lib/statement');
 const InputChecker = require('../lib/inputChecker');
 
-jest.mock('../lib/transaction');
+jest.mock('../lib/transactionHistory');
 jest.mock('../lib/statement');
 jest.mock('../lib/inputChecker');
 
 describe('BankAccount', () => {
   beforeEach(() => {
-    Transaction.mockClear();
+    TransactionHistory.mockClear();
     Statement.mockClear();
     InputChecker.mockClear();
+    mockHistory = new TransactionHistory();
     mockStatement = new Statement();
     mockChecker = new InputChecker();
-    bankAccount = new BankAccount(Transaction, mockStatement, mockChecker);
+    bankAccount = new BankAccount(mockHistory, mockStatement, mockChecker);
   });
 
   describe('balance', () => {
     it('should let you check the balance in your bank account', () => {
       expect(bankAccount.balance).toEqual(0);
-    });
-
-    it('should let you see the balance nicely formatted', () => {
-      console.log = jest.fn();
-      bankAccount.getBalance();
-      expect(console.log).toHaveBeenCalledWith('Balance: £0.00');
-    });
-  });
-
-  describe('history', () => {
-    it('should let you check the transaction history', () => {
-      expect(bankAccount.history).toEqual([]);
-    });
-
-    it('transaction history should be updated after a deposit', () => {
-      bankAccount.deposit(500, '22/05/2022');
-      expect(bankAccount.history.length).toEqual(1);
-    });
-
-    it('transaction history should be updated after a withdraw', () => {
-      bankAccount.deposit(500, '22/05/2022');
-      bankAccount.withdraw(500, '22/05/2022');
-      expect(bankAccount.history.length).toEqual(2);
     });
   });
 
@@ -50,6 +28,12 @@ describe('BankAccount', () => {
     it('should let you deposit money into your bank account', () => {
       bankAccount.deposit(500, '22/05/2022');
       expect(bankAccount.balance).toEqual(500);
+    });
+
+    it('should let you see the balance after deposit', () => {
+      console.log = jest.fn();
+      bankAccount.deposit(500, '22/05/2022');
+      expect(console.log).toHaveBeenCalledWith('Balance: £500.00');
     });
 
     it('raises an error if the number is not a number', () => {
@@ -88,6 +72,13 @@ describe('BankAccount', () => {
       bankAccount.deposit(500, '22/05/2022');
       bankAccount.withdraw(100, '22/05/2022');
       expect(bankAccount.balance).toEqual(400);
+    });
+
+    it('should let you see the balance after withdraw', () => {
+      bankAccount.deposit(500, '22/05/2022');
+      console.log = jest.fn();
+      bankAccount.withdraw(200, '22/05/2022');
+      expect(console.log).toHaveBeenCalledWith('Balance: £300.00');
     });
 
     it('raises an error if the number is not a number', () => {
@@ -148,25 +139,6 @@ describe('BankAccount', () => {
     });
 
     it('should print with latest transactions shown first', () => {
-      Transaction.mockImplementationOnce(() => {
-        return {
-          date: '22/05/2022',
-          credit: '500.00 ',
-          debit: '',
-          balance: '500.00',
-        };
-      });
-      bankAccount.deposit(500, '22/05/2022');
-      Transaction.mockImplementationOnce(() => {
-        return {
-          date: '22/05/2022',
-          credit: '',
-          debit: '200.00 ',
-          balance: '300.00',
-        };
-      });
-      bankAccount.withdraw(200, '22/05/2022');
-      // Due to the mocking on line 170, lines 151 - 168 are not needed to pass the test anymore but left them in to mock how the program works
       bankAccount.statement.print.mockImplementationOnce(() => {
         console.log(  
           'date || credit || debit || balance' +
