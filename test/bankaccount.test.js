@@ -101,7 +101,7 @@ describe('BankAccount', () => {
       expect(bankAccount.balance).toEqual(500);
     });
 
-    it('raises an error if the number is greater than the current balance', () => {
+    it('raises an error if the number is greater than the balance', () => {
       bankAccount.deposit(500, '22/05/2022');
       expect(() => {
         bankAccount.withdraw(501, '22/05/2022');
@@ -111,7 +111,7 @@ describe('BankAccount', () => {
   });
 
   describe('printStatement', () => {
-    it('should print out a bank statement with just the header when there are no transactions', () => {
+    it('should print out the header when there are no transactions', () => {
       bankAccount.statement.print.mockImplementationOnce(() => {
         console.log('date || credit || debit || balance');
       })
@@ -122,7 +122,7 @@ describe('BankAccount', () => {
       );
     });
 
-    it('should print out a bank statement with transactions with the latest transactions shown first and 2 decimals shown for numbers', () => {
+    it('should print with latest transactions shown first', () => {
       Transaction.mockImplementationOnce(() => {
         return {
           date: '22/05/2022',

@@ -26,7 +26,7 @@ describe('Statement', () => {
     );
   })
 
-  it('should print out transactions in the bank statement formatted to 2 decimal places', () => {
+  it('should print out transactions formatted to 2 decimal places', () => {
     console.log = jest.fn();
     statement.print(array);
     expect(console.log).toHaveBeenCalledWith(
