@@ -78,9 +78,16 @@ I used Jest for testing, Prettier to format my code and attempted to use ESLint 
 - Write feature test
 - Use a lint afterall
 - Separate Statement into new class for SRP
+- Make methods return something other than undefined
 
 ![Screenshot](https://i.imgur.com/jbXvcQq.png)
-After first self review, decided to split Statement into a new class afterall. Wrote a feature test that passes and attempted to use the Lint again but some changes would eventually break the code/tests again so instead just used the Lint to further format my code. Decided to split my files into folders as there are several files now.
+After first self review, decided to split Statement into a new class afterall. Wrote a feature test that passes and attempted to use the Lint again but some changes would eventually break the code/tests again so instead just used the Lint to further format my code. Decided to split my files into folders as there are several files now. Tried to use getBalance method (with it returning `this.balance` at the end) placed at the end of my methods to return the balance at the end but still returned undefined so removed them.
+
+### After second self-review
+- Test behaviour rather than state
+- BankAccount class may be too long
+
+Tried to look for ways to test behaviour rather than state [Jest Matchers](https://jestjs.io/docs/expect) (e.g when depositing, check if method increases balance by the deposited amount rather than just checking if the amount is correct), however, when looking at the available matchers, there didn't seem to be anything similar to RSpec's `expect(action).to change(object, value)` - so not sure how to proceed. BankAccount class did seem pretty long, especially in comparison to the other two classes, however this was due to the private methods used to record transactions (that are already in a different class) and also checking user inputs for the numbers.
 
 ## Resources used
 ```
