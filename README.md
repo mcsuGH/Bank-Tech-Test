@@ -8,7 +8,7 @@ Clone this repository using `git clone https://github.com/mcsuGH/Bank-Tech-Test.
 \
 Run `npm install` to install any dependencies then run `jest` to run the tests for the code. To check for test coverage, run the command `jest --coverage`.\
 \
-To use the program, whilst in the main directory in the terminal, run `node` to open up Node, then use the command `const BankAccount = require('./bankAccount')`. Create a new account using `account = new BankAccount();` then use the functions `deposit(num, date)` and `withdraw(num, date)` with `num` being the amount and date being a string in the format DD/MM/YYYY such as `'22/05/2022'`. After finishing your transactions, use the command `printStatement()` to display your bank statement inside your terminal.
+To use the program, whilst in the main directory in the terminal, run `node` to open up Node, then use the command `const BankAccount = require('./bankAccount')`. Create a new account using `account = new BankAccount();` then use the functions `deposit(num)` and `withdraw(num)` with `num` being the amount. After finishing your transactions, use the command `printStatement()` to display your bank statement inside your terminal.
 
 ## Specification
 ### Requirements
