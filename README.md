@@ -74,6 +74,14 @@ I considered a few edge cases that were not part of the spec such as not allowin
 \
 I used Jest for testing, Prettier to format my code and attempted to use ESLint as a linter - however, there would be many clashes between ESLint and Prettier (for example, ESLint would raise problems for using `""` instead of `''`, but Prettier would use `""`). ESLint also would raise problems with a few other issues that would end up breaking the tests/code (such as using `!==` instead of `!=` for my inequality when checking decimal places). As a result, I opted against using ESLint to lint my code and just stuck with using Prettier to format it instead.
 
+### After first self-review
+- Write feature test
+- Use a lint afterall
+- Separate Statement into new class for SRP
+
+![Screenshot](https://i.imgur.com/jbXvcQq.png)
+After first self review, decided to split Statement into a new class afterall. Wrote a feature test that passes and attempted to use the Lint again but some changes would eventually break the code/tests again so instead just used the Lint to further format my code. Decided to split my files into folders as there are several files now.
+
 ## Resources used
 ```
 https://stackoverflow.com/questions/49096093/how-do-i-test-a-jest-console-log

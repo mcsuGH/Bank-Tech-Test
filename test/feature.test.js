@@ -1,4 +1,4 @@
-const BankAccount = require('./bankAccount');
+const BankAccount = require('../lib/bankAccount');
 
 describe("Feature Test", () => {
   it('test to see all the functions work as intended', () => {

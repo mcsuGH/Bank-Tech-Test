@@ -1,19 +1,19 @@
-const Statement = require('./statement');
+const Statement = require('../lib/statement');
 
 describe('Statement', () => {
   beforeEach(() => {
     statement = new Statement();
     mockTransaction = {
-      date: "22/05/2022",
-      credit: "500.00 ",
-      debit: "",
-      balance: "500.00",
+      date: '22/05/2022',
+      credit: '500.00 ',
+      debit: '',
+      balance: '500.00',
     };
     mockTransaction2 = {
-      date: "22/05/2022",
-      credit: "",
-      debit: "200.00 ",
-      balance: "300.00",
+      date: '22/05/2022',
+      credit: '',
+      debit: '200.00 ',
+      balance: '300.00',
     };
     array = [mockTransaction2, mockTransaction];
   })
@@ -22,7 +22,7 @@ describe('Statement', () => {
     console.log = jest.fn();
     statement.print();
     expect(console.log).toHaveBeenCalledWith(
-      "date || credit || debit || balance"
+      'date || credit || debit || balance'
     );
   })
 
@@ -30,9 +30,9 @@ describe('Statement', () => {
     console.log = jest.fn();
     statement.print(array);
     expect(console.log).toHaveBeenCalledWith(
-      "date || credit || debit || balance" +
-        "\n22/05/2022 || || 200.00 || 300.00" +
-        "\n22/05/2022 || 500.00 || || 500.00"
+      'date || credit || debit || balance' +
+        '\n22/05/2022 || || 200.00 || 300.00' +
+        '\n22/05/2022 || 500.00 || || 500.00'
     );
   })
 })
