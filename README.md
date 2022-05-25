@@ -79,9 +79,6 @@ The Transaction class I originally made ended up being redundant after making th
 \
 I used Jest for testing, Prettier to format my code and attempted to use ESLint as a linter - however, there would be many clashes between ESLint and Prettier (for example, ESLint would raise problems for using `""` instead of `''`, but Prettier would use `""`). ESLint also would raise problems with a few other issues that would end up breaking the tests/code (such as using `!==` instead of `!=` for my inequality when checking decimal places). As a result, I opted against using ESLint to lint my code and just stuck with using Prettier to format it instead.
 
-## Possible Future Actions/Improvements
-
-
 ## Resources used
 ```
 https://stackoverflow.com/questions/49096093/how-do-i-test-a-jest-console-log

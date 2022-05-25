@@ -21,6 +21,12 @@ describe('TransactionHistory', () => {
       expect(history.getLog()[0].credit).toEqual('500.00 ');
     });
 
+    it('deposits should have a empty string for debit', () => {
+      history.recordDeposit(500, 500);
+
+      expect(history.getLog()[0].debit).toEqual('');
+    });
+
     it('deposits should have the current balance', () => {
       history.recordDeposit(500, 500);
 
@@ -34,6 +40,12 @@ describe('TransactionHistory', () => {
       history.recordWithdraw(500, 0);
 
       expect(history.getLog()[0].date).toEqual('22/05/2022');
+    });
+
+    it('withdraws should have a empty string for credit', () => {
+      history.recordWithdraw(500, 0);
+
+      expect(history.getLog()[0].credit).toEqual('');
     });
 
     it('withdraws should have a debit', () => {
