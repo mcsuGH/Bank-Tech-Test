@@ -16,11 +16,13 @@ describe('TransactionHistory', () => {
 
     it('transaction history should be updated after a deposit', () => {
       history.recordDeposit(500);
+
       expect(history.log.length).toEqual(1);
     });
 
     it('transaction history should be updated after a withdraw', () => {
       history.recordWithdraw(500);
+
       expect(history.log.length).toEqual(1);
     });
 
@@ -43,6 +45,7 @@ describe('TransactionHistory', () => {
         }
       })
       history.recordWithdraw(500);
+      
       expect(history.log[0]).toEqual({
         date: '23/05/2022',
         credit: '',

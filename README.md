@@ -6,9 +6,12 @@ The program will be ran in Node but will not need to have a Command Line Interfa
 ## Instructions
 Clone this repository using `git clone https://github.com/mcsuGH/Bank-Tech-Test.git`\
 \
-Run `npm install` to install any dependencies then run `jest` to run the tests for the code. To check for test coverage, run the command `jest --coverage`.\
+Run `npm install` to install any dependencies then run `npm test` to run the tests for the code which will also give you the code coverage.\
 \
-To use the program, whilst in the main directory in the terminal, run `node` to open up Node, then use the command `const BankAccount = require('./lib/bankAccount')`. Create a new account using `account = new BankAccount();` then use the functions `deposit(num)` and `withdraw(num)` with `num` being the amount. After finishing your transactions, use the command `printStatement()` to display your bank statement inside your terminal.
+To use the program, whilst in the main directory in the terminal, run `node` to open up Node, then use the command `const BankAccount = require('./lib/bankAccount')`. Create a new account using `const account = new BankAccount();` then use the functions `account.deposit(num)` and `account.withdraw(num)` with `num` being the amount in GBP (entering `1` is equivalent to £1). After finishing your transactions, use the command `account.printStatement()` to display your bank statement inside your terminal.\
+\
+Example of my code running:
+![Screenshot](https://i.imgur.com/20e3gUN.png)
 
 ## Specification
 ### Requirements
@@ -64,38 +67,18 @@ I would like the customers to only be able to put in valid user inputs
 ```
 
 ## Approach
-![Screenshot](https://i.imgur.com/ItsUeyz.png)
-![Screenshot](https://i.imgur.com/8NC0R0C.png)
-As can be seen above, there is 100% test coverage and the program works according to the specification above with all the user stories satisfied. I approached this task following a TDD process, always writing tests first and then writing code to pass those tests to ensure high test coverage. I followed the SRP by separating my methods when I realised they were responsible for doing more than one thing (such as splitting my deposit method to the current deposit method aswell as a new method used to record the transaction).\
+![Screenshot](https://i.imgur.com/MeuTbyy.png)
+![Screenshot](https://i.imgur.com/x7QfuN5.png)
+As can be seen above, there is 100% test coverage and the program works according to the specification above with all the user stories satisfied. I approached this task following a TDD process, always writing tests first and then writing code to pass those tests to ensure high test coverage. I followed the SRP by separating my methods when I realised they were responsible for doing more than one thing (such as splitting my deposit method to the current deposit method aswell as a new method used to record the transaction). I applied SRP also to my classes (made a TransactionHistory class to hold Transactions, and also made a InputChecker class to check for invalid user inputs).\
 \
-I initially started with writing all the code inside the same code file but it became apparent early on from writing tests that a Transaction class would be needed so I ended up with two classes - Bank Account class and Transaction class. I considered creating a Statement class too to print out the bank statements but it didn't seem necessary as the method used to print it still seemed concise and there was no need for any variables for printing out the statement so there didn't seem to be a need for splitting it off into a new class.\
+I initially started with writing all the code inside the same code file but it became apparent early on from writing tests that a Transaction class would be needed so I ended up with two classes - Bank Account class and Transaction class. I considered creating a Statement class too to print out the bank statements but initially I thought it didn't seem necessary as the method used to print it still seemed concise and there was no need for any variables for printing out the statement so there didn't seem to be a need for splitting it off into a new class. After self reviewing my code, I decided to make the Statement class after all to abide by SRP better.\
 \
-I considered a few edge cases that were not part of the spec such as not allowing overdrafts (which led to the introduction of a balance check when withdrawing money) and also to check that when depositing and withdrawing, the amount would be a valid monetary amount. I raised errors according to these situations so that accounts can still keep working as per normal even after a action that would raise an error - previously, these actions could break the program (such as when entering a string in place of the amount, the balance would become NaN, or Not a Number).\
+I considered a few edge cases that were not part of the spec such as not allowing overdrafts (which led to the introduction of a balance check when withdrawing money) and also to check that when depositing and withdrawing, the amount would be a valid monetary amount. I raised errors according to these situations so that accounts can still keep working as per normal even after a action that would raise an error - previously, these actions could break the program (such as when entering a string in place of the amount, the balance would become NaN, or Not a Number). These edge cases have both been tested and accounted for in my program as can be seen above in the pictures.\
 \
 I used Jest for testing, Prettier to format my code and attempted to use ESLint as a linter - however, there would be many clashes between ESLint and Prettier (for example, ESLint would raise problems for using `""` instead of `''`, but Prettier would use `""`). ESLint also would raise problems with a few other issues that would end up breaking the tests/code (such as using `!==` instead of `!=` for my inequality when checking decimal places). As a result, I opted against using ESLint to lint my code and just stuck with using Prettier to format it instead.
 
-### After first self-review
-- Write feature test
-- Use a lint afterall
-- Separate Statement into new class for SRP
-- Make methods return something other than undefined
-
-![Screenshot](https://i.imgur.com/jbXvcQq.png)
-After first self review, decided to split Statement into a new class afterall. Wrote a feature test that passes and attempted to use the Lint again but some changes would eventually break the code/tests again so instead just used the Lint to further format my code. Decided to split my files into folders as there are several files now. Tried to use getBalance method (with it returning `this.balance` at the end) placed at the end of my methods to return the balance at the end but still returned undefined so removed them.
-
-### After second self-review
-- Test behaviour rather than state
-- BankAccount class may be too long
-
-Tried to look for ways to test behaviour rather than state [Jest Matchers](https://jestjs.io/docs/expect) (e.g when depositing, check if method increases balance by the deposited amount rather than just checking if the amount is correct), however, when looking at the available matchers, there didn't seem to be anything similar to RSpec's `expect(action).to change(object, value)` - so not sure how to proceed. BankAccount class did seem pretty long, especially in comparison to the other two classes, however this was due to the private methods used to record transactions (that are already in a different class) and also checking user inputs for the numbers.
-
-### After third self-review
-- Asked whether dependency on Time is mocked
-- BankAccount class is most likely too long
-
-![Screenshot](https://i.imgur.com/gzHYw6u.png)
-![Screenshot](https://i.imgur.com/2vMQ0wu.png)
-Answering the Self-review questions seemed to suggest that Time is used to create the date/time of the transactions rather than having the user manually input them which would lead to the need of mocking the Time in the tests and so I used Moment in order to take the current date and MockDate to mock Time in my tests. Again, there were further suggestions that my BankAccount class was far too long and so I created two new classes, a new InputChecker class to check if user inputs are valid, and also a TransactionHistory class to log and record all transactions. This now means that all my code files are relatively short and similar in size. All dependencies are mocked and there is thorough testing with 100% coverage. I also gave my error messages more description to enhance user experience.
+## Possible Future Actions/Improvements
+I could remove Transaction class to reduce complexity of the program and make it so my TransactionHistory class just makes objects similar to what I currently have for Transactions, which would remove the need for mocking in some tests and reduce the number of classes used.
 
 ## Resources used
 ```

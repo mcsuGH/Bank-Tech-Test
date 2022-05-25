@@ -21,6 +21,7 @@ describe('Statement', () => {
   it('should print only the header when there are no transactions', () => {
     console.log = jest.fn();
     statement.print();
+
     expect(console.log).toHaveBeenCalledWith(
       'date || credit || debit || balance'
     );
@@ -29,6 +30,7 @@ describe('Statement', () => {
   it('should print out transactions formatted to 2 decimal places', () => {
     console.log = jest.fn();
     statement.print(array);
+    
     expect(console.log).toHaveBeenCalledWith(
       'date || credit || debit || balance' +
         '\n22/05/2022 || || 200.00 || 300.00' +

@@ -18,111 +18,122 @@ describe('BankAccount', () => {
     bankAccount = new BankAccount(mockHistory, mockStatement, mockChecker);
   });
 
-  describe('balance', () => {
+  describe('getBalance', () => {
     it('should let you check the balance in your bank account', () => {
-      expect(bankAccount.balance).toEqual(0);
+      expect(bankAccount.getBalance()).toEqual(0);
     });
   });
 
   describe('deposit', () => {
     it('should let you deposit money into your bank account', () => {
-      bankAccount.deposit(500, '22/05/2022');
-      expect(bankAccount.balance).toEqual(500);
+      bankAccount.deposit(500);
+
+      expect(bankAccount.getBalance()).toEqual(500);
     });
 
     it('should let you see the balance after deposit', () => {
       console.log = jest.fn();
-      bankAccount.deposit(500, '22/05/2022');
+      bankAccount.deposit(500);
+
       expect(console.log).toHaveBeenCalledWith('Balance: £500.00');
     });
 
-    it('raises an error if the number is not a number', () => {
+    it('balance does not change if the input is not a number', () => {
       bankAccount.checker.checkNumber.mockImplementationOnce(() => {
         throw "Please enter a valid amount"
       })
+
       expect(() => {
-        bankAccount.deposit('bob', '22/05/2022');
+        bankAccount.deposit('bob');
       }).toThrowError('Please enter a valid amount');
-      expect(bankAccount.balance).toEqual(0);
+      expect(bankAccount.getBalance()).toEqual(0);
     });
 
-    it('raises an error if the number has too many decimals', () => {
+    it('balance does not change if the number has more than 2 decimals', () => {
       bankAccount.checker.checkNumber.mockImplementationOnce(() => {
         throw "Please enter a valid amount"
       })
+
       expect(() => {
-        bankAccount.deposit(500.123, '22/05/2022');
+        bankAccount.deposit(500.123);
       }).toThrowError('Please enter a valid amount');
-      expect(bankAccount.balance).toEqual(0);
+      expect(bankAccount.getBalance()).toEqual(0);
     });
 
-    it('raises an error if the number is less than 0', () => {
+    it('balance does not change if the input is negative', () => {
       bankAccount.checker.checkNumber.mockImplementationOnce(() => {
         throw "Please enter a valid amount"
       })
+
       expect(() => {
-        bankAccount.deposit(-1, '22/05/2022');
+        bankAccount.deposit(-1);
       }).toThrowError('Please enter a valid amount');
-      expect(bankAccount.balance).toEqual(0);
+      expect(bankAccount.getBalance()).toEqual(0);
     });
   });
 
   describe('withdraw', () => {
     it('should let you withdraw money from your bank account', () => {
-      bankAccount.deposit(500, '22/05/2022');
-      bankAccount.withdraw(100, '22/05/2022');
-      expect(bankAccount.balance).toEqual(400);
+      bankAccount.deposit(500);
+      bankAccount.withdraw(100);
+
+      expect(bankAccount.getBalance()).toEqual(400);
     });
 
     it('should let you see the balance after withdraw', () => {
-      bankAccount.deposit(500, '22/05/2022');
+      bankAccount.deposit(500);
       console.log = jest.fn();
-      bankAccount.withdraw(200, '22/05/2022');
+      bankAccount.withdraw(200);
+
       expect(console.log).toHaveBeenCalledWith('Balance: £300.00');
     });
 
-    it('raises an error if the number is not a number', () => {
-      bankAccount.deposit(500, '22/05/2022');
+    it('balance does not change if the input is not a number', () => {
+      bankAccount.deposit(500);
       bankAccount.checker.checkNumber.mockImplementationOnce(() => {
         throw "Please enter a valid amount"
       })
+
       expect(() => {
-        bankAccount.withdraw('bob', '22/05/2022');
+        bankAccount.withdraw('bob');
       }).toThrowError('Please enter a valid amount');
-      expect(bankAccount.balance).toEqual(500);
+      expect(bankAccount.getBalance()).toEqual(500);
     });
 
-    it('raises an error if the number has too many decimals', () => {
-      bankAccount.deposit(500, '22/05/2022');
+    it('balance does not change if the input has more than 2 decimals', () => {
+      bankAccount.deposit(500);
       bankAccount.checker.checkNumber.mockImplementationOnce(() => {
         throw "Please enter a valid amount"
       })
+
       expect(() => {
-        bankAccount.withdraw(0.123, '22/05/2022');
+        bankAccount.withdraw(0.123);
       }).toThrowError('Please enter a valid amount');
-      expect(bankAccount.balance).toEqual(500);
+      expect(bankAccount.getBalance()).toEqual(500);
     });
 
-    it('raises an error if the number is less than 0', () => {
-      bankAccount.deposit(500, '22/05/2022');
+    it('balance does not change if the input is negative', () => {
+      bankAccount.deposit(500);
       bankAccount.checker.checkNumber.mockImplementationOnce(() => {
         throw "Please enter a valid amount"
       })
+
       expect(() => {
-        bankAccount.withdraw(-1, '22/05/2022');
+        bankAccount.withdraw(-1);
       }).toThrowError('Please enter a valid amount');
-      expect(bankAccount.balance).toEqual(500);
+      expect(bankAccount.getBalance()).toEqual(500);
     });
 
-    it('raises an error if the number is greater than the balance', () => {
-      bankAccount.deposit(500, '22/05/2022');
+    it('balance does not change if there is a insufficient balance', () => {
+      bankAccount.deposit(500);
       bankAccount.checker.checkNumber.mockImplementationOnce(() => {
         throw "Insufficient balance"
       })
+
       expect(() => {
-        bankAccount.withdraw(501, '22/05/2022');
+        bankAccount.withdraw(501);
       }).toThrowError('Insufficient balance');
-      expect(bankAccount.balance).toEqual(500);
+      expect(bankAccount.getBalance()).toEqual(500);
     });
   });
 
@@ -133,6 +144,7 @@ describe('BankAccount', () => {
       })
       console.log = jest.fn();
       bankAccount.printStatement();
+
       expect(console.log).toHaveBeenCalledWith(
         'date || credit || debit || balance',
       );
@@ -148,6 +160,7 @@ describe('BankAccount', () => {
       });
       console.log = jest.fn();
       bankAccount.printStatement();
+      
       expect(console.log).toHaveBeenCalledWith(
         'date || credit || debit || balance' +
           '\n22/05/2022 || || 200.00 || 300.00' +

@@ -4,7 +4,7 @@
   "description": "For a practice tech test, I have been tasked to create a Bank system that allows people to deposit money, withdraw money and print their bank statement.\\ \\ The program will be ran in Node but will not need to have a Command Line Interface. The focus of the project is to practice OO design and TDD skills and the project will be completed solo with self-reviews done to reflect and improve upon my own code.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest --coverage"
   },
   "repository": {
     "type": "git",
