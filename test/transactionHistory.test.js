@@ -5,6 +5,7 @@ jest.mock('../lib/transaction');
 
 describe('TransactionHistory', () => {
   beforeEach(() => {
+    Transaction.mockClear();
     history = new TransactionHistory(Transaction);
   })
 
