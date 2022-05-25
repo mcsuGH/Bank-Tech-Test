@@ -1,12 +1,52 @@
-const TransactionHistory = require('../lib/transactionHistory');
-const Transaction = require('../lib/transaction');
+const MockDate = require('mockdate')
 
-jest.mock('../lib/transaction');
+const TransactionHistory = require('../lib/transactionHistory');
 
 describe('TransactionHistory', () => {
   beforeEach(() => {
-    Transaction.mockClear();
-    history = new TransactionHistory(Transaction);
+    history = new TransactionHistory();
+  })
+
+  describe('recordDeposit', () => {
+    it('deposits should have a date', () => {
+      MockDate.set('2022-05-22')
+      history.recordDeposit(500, 500);
+
+      expect(history.getLog()[0].date).toEqual('22/05/2022');
+    });
+
+    it('deposits should have a credit', () => {
+      history.recordDeposit(500, 500);
+
+      expect(history.getLog()[0].credit).toEqual('500.00 ');
+    });
+
+    it('deposits should have the current balance', () => {
+      history.recordDeposit(500, 500);
+
+      expect(history.getLog()[0].balance).toEqual('500.00');
+    });
+  })
+
+  describe('recordWithdraw', () => {
+    it('withdraws should have a date', () => {
+      MockDate.set('2022-05-22')
+      history.recordWithdraw(500, 0);
+
+      expect(history.getLog()[0].date).toEqual('22/05/2022');
+    });
+
+    it('withdraws should have a debit', () => {
+      history.recordWithdraw(500, 0);
+
+      expect(history.getLog()[0].debit).toEqual('500.00 ');
+    });
+
+    it('deposits should have the current balance', () => {
+      history.recordDeposit(500, 0);
+
+      expect(history.getLog()[0].balance).toEqual('0.00');
+    });
   })
 
   describe('history', () => {
@@ -15,45 +55,29 @@ describe('TransactionHistory', () => {
     });
 
     it('transaction history should be updated after a deposit', () => {
-      history.recordDeposit(500);
+      history.recordDeposit(500, 500);
 
-      expect(history.log.length).toEqual(1);
+      expect(history.getLog().length).toEqual(1);
     });
 
     it('transaction history should be updated after a withdraw', () => {
-      history.recordWithdraw(500);
+      history.recordWithdraw(500, 0);
 
       expect(history.log.length).toEqual(1);
     });
 
     it('transaction history should show latest transactions first', () => {
-      Transaction.mockImplementationOnce(() => {
-        return {
-          date: '23/05/2022',
-          credit: 500,
-          debit: '',
-          balance: 500,
-        }
-      })
-      history.recordDeposit(500);
-      Transaction.mockImplementationOnce(() => {
-        return {
-          date: '23/05/2022',
-          credit: '',
-          debit: 500,
-          balance: 0,
-        }
-      })
-      history.recordWithdraw(500);
-      
-      expect(history.log[0]).toEqual({
-        date: '23/05/2022',
+      MockDate.set('2022-05-22')
+      history.recordDeposit(500, 500);
+      history.recordWithdraw(500, 0);
+
+      expect(history.getLog()[0]).toEqual({
+        date: '22/05/2022',
         credit: '',
-        debit: 500,
-        balance: 0,
+        debit: '500.00 ',
+        balance: '0.00',
       });
     });
-    
   });
 
 })

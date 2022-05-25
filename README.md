@@ -6,7 +6,7 @@ The program will be ran in Node but will not need to have a Command Line Interfa
 ## Instructions
 Clone this repository using `git clone https://github.com/mcsuGH/Bank-Tech-Test.git`\
 \
-Run `npm install` to install any dependencies then run `npm test` to run the tests for the code which will also give you the code coverage.\
+Run `npm install` to install any dependencies then run `npm run test` to run the tests for the code which will also give you the code coverage.\
 \
 To use the program, whilst in the main directory in the terminal, run `node` to open up Node, then use the command `const BankAccount = require('./lib/bankAccount')`. Create a new account using `const account = new BankAccount();` then use the functions `account.deposit(num)` and `account.withdraw(num)` with `num` being the amount in GBP (entering `1` is equivalent to £1). After finishing your transactions, use the command `account.printStatement()` to display your bank statement inside your terminal.\
 \
@@ -68,17 +68,19 @@ I would like the customers to only be able to put in valid user inputs
 
 ## Approach
 ![Screenshot](https://i.imgur.com/MeuTbyy.png)
-![Screenshot](https://i.imgur.com/x7QfuN5.png)
+![Screenshot](https://i.imgur.com/ji9JrgU.png)
 As can be seen above, there is 100% test coverage and the program works according to the specification above with all the user stories satisfied. I approached this task following a TDD process, always writing tests first and then writing code to pass those tests to ensure high test coverage. I followed the SRP by separating my methods when I realised they were responsible for doing more than one thing (such as splitting my deposit method to the current deposit method aswell as a new method used to record the transaction). I applied SRP also to my classes (made a TransactionHistory class to hold Transactions, and also made a InputChecker class to check for invalid user inputs).\
 \
 I initially started with writing all the code inside the same code file but it became apparent early on from writing tests that a Transaction class would be needed so I ended up with two classes - Bank Account class and Transaction class. I considered creating a Statement class too to print out the bank statements but initially I thought it didn't seem necessary as the method used to print it still seemed concise and there was no need for any variables for printing out the statement so there didn't seem to be a need for splitting it off into a new class. After self reviewing my code, I decided to make the Statement class after all to abide by SRP better.\
 \
 I considered a few edge cases that were not part of the spec such as not allowing overdrafts (which led to the introduction of a balance check when withdrawing money) and also to check that when depositing and withdrawing, the amount would be a valid monetary amount. I raised errors according to these situations so that accounts can still keep working as per normal even after a action that would raise an error - previously, these actions could break the program (such as when entering a string in place of the amount, the balance would become NaN, or Not a Number). These edge cases have both been tested and accounted for in my program as can be seen above in the pictures.\
 \
+The Transaction class I originally made ended up being redundant after making the TransactionHistory class and as a result, I removed the Transaction class and instead just created objects within the TransactionHistory class similar to what Transaction was. This allowed me to reduce the complexity of the program and reduce the number of classes from 5 down to 4.\
+\
 I used Jest for testing, Prettier to format my code and attempted to use ESLint as a linter - however, there would be many clashes between ESLint and Prettier (for example, ESLint would raise problems for using `""` instead of `''`, but Prettier would use `""`). ESLint also would raise problems with a few other issues that would end up breaking the tests/code (such as using `!==` instead of `!=` for my inequality when checking decimal places). As a result, I opted against using ESLint to lint my code and just stuck with using Prettier to format it instead.
 
 ## Possible Future Actions/Improvements
-I could remove Transaction class to reduce complexity of the program and make it so my TransactionHistory class just makes objects similar to what I currently have for Transactions, which would remove the need for mocking in some tests and reduce the number of classes used.
+
 
 ## Resources used
 ```
