@@ -138,19 +138,7 @@ describe('BankAccount', () => {
   });
 
   describe('printStatement', () => {
-    it('should print out the header when there are no transactions', () => {
-      bankAccount.statement.print.mockImplementationOnce(() => {
-        console.log('date || credit || debit || balance');
-      })
-      console.log = jest.fn();
-      bankAccount.printStatement();
-
-      expect(console.log).toHaveBeenCalledWith(
-        'date || credit || debit || balance',
-      );
-    });
-
-    it('should print with latest transactions shown first', () => {
+    it('should print statement', () => {
       bankAccount.statement.print.mockImplementationOnce(() => {
         console.log(  
           'date || credit || debit || balance' +
@@ -158,14 +146,9 @@ describe('BankAccount', () => {
           '\n22/05/2022 || 500.00 || || 500.00',
         );
       });
-      console.log = jest.fn();
       bankAccount.printStatement();
       
-      expect(console.log).toHaveBeenCalledWith(
-        'date || credit || debit || balance' +
-          '\n22/05/2022 || || 200.00 || 300.00' +
-          '\n22/05/2022 || 500.00 || || 500.00'
-      );
+      expect(bankAccount.statement.print).toHaveBeenCalledTimes(1)
     });
   });
 });

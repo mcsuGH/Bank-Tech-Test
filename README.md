@@ -68,7 +68,7 @@ I would like the customers to only be able to put in valid user inputs
 
 ## Approach
 ![Screenshot](https://i.imgur.com/MeuTbyy.png)
-![Screenshot](https://i.imgur.com/ji9JrgU.png)
+![Screenshot](https://i.imgur.com/sbqagwE.png)
 As can be seen above, there is 100% test coverage and the program works according to the specification above with all the user stories satisfied. I approached this task following a TDD process, always writing tests first and then writing code to pass those tests to ensure high test coverage. I followed the SRP by separating my methods when I realised they were responsible for doing more than one thing (such as splitting my deposit method to the current deposit method aswell as a new method used to record the transaction). I applied SRP also to my classes (made a TransactionHistory class to hold Transactions, and also made a InputChecker class to check for invalid user inputs).\
 \
 I initially started with writing all the code inside the same code file but it became apparent early on from writing tests that a Transaction class would be needed so I ended up with two classes - Bank Account class and Transaction class. I considered creating a Statement class too to print out the bank statements but initially I thought it didn't seem necessary as the method used to print it still seemed concise and there was no need for any variables for printing out the statement so there didn't seem to be a need for splitting it off into a new class. After self reviewing my code, I decided to make the Statement class after all to abide by SRP better.\

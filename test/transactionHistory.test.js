@@ -75,7 +75,7 @@ describe('TransactionHistory', () => {
     it('transaction history should be updated after a withdraw', () => {
       history.recordWithdraw(500, 0);
 
-      expect(history.log.length).toEqual(1);
+      expect(history.getLog().length).toEqual(1);
     });
 
     it('transaction history should show latest transactions first', () => {
